@@ -1,0 +1,983 @@
+
+/* =====================================
+   CONFIGURACIÓN GENERAL
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --verde: #36e6a1;
+    --verde-oscuro: #13a979;
+    --turquesa: #4de5d0;
+    --blanco: #f4fffc;
+    --texto-secundario: #b5d4ce;
+    --panel: rgba(8, 29, 36, 0.82);
+}
+
+body {
+    min-height: 100vh;
+    color: var(--blanco);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+    background: #071a20;
+    overflow-x: hidden;
+}
+
+/* =====================================
+   FONDO
+===================================== */
+
+#fondoVideo {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
+    pointer-events: none;
+}
+
+.fondo-overlay {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 40%,
+        rgba(13, 93, 76, 0.20),
+        transparent 55%),
+        rgba(3, 16, 22, 0.82);
+    backdrop-filter: blur(3px);
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* =====================================
+   PANTALLAS
+===================================== */
+
+.pantalla {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: 35px 20px;
+}
+
+.pantalla.activa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: aparecer 0.5s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================
+   ELEMENTOS GENERALES
+===================================== */
+
+.etiqueta {
+    display: inline-block;
+    color: var(--verde);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: clamp(27px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+h1 span {
+    color: var(--verde);
+}
+
+.subtitulo,
+.encabezado p {
+    color: var(--texto-secundario);
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+/* =====================================
+   PANTALLA DE INICIO
+===================================== */
+
+.contenido-inicio {
+    width: 100%;
+    max-width: 750px;
+}
+
+.pulmones-icono {
+    margin: 15px auto 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pulmones-icono img {
+    width: clamp(180px, 35vw, 300px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 25px rgba(54, 230, 161, 0.2));
+    
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.texto-inferior {
+    color: #86aaa1;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 30px;
+}
+
+/* =====================================
+   BOTONES
+===================================== */
+
+button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.boton-principal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    min-width: 210px;
+    padding: 17px 30px;
+    margin: auto;
+    border-radius: 12px;
+    color: #05251c;
+    background: linear-gradient(135deg,
+        #5bf5b2,
+        #22c997);
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    box-shadow: 0 8px 30px rgba(54, 230, 161, 0.2);
+}
+
+.boton-principal:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(54, 230, 161, 0.4);
+}
+
+.flecha {
+    font-size: 22px;
+}
+
+.boton-secundario,
+.boton-menu {
+    color: var(--blanco);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-weight: 700;
+}
+
+.boton-secundario:hover,
+.boton-menu:hover {
+    background: rgba(54,230,161,0.2);
+    border-color: var(--verde);
+}
+
+/* =====================================
+   MENÚ DE DIFICULTADES
+===================================== */
+
+.encabezado {
+    margin-bottom: 40px;
+}
+
+.dificultades {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.tarjeta-dificultad {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+    min-height: 245px;
+    padding: 25px 15px;
+    color: var(--blanco);
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    overflow: hidden;
+}
+
+.tarjeta-dificultad::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--verde);
+}
+
+.intermedio::before {
+    background: #47c9ed;
+}
+
+.avanzado::before {
+    background: #ffad5a;
+}
+
+.tarjeta-dificultad:hover {
+    transform: translateY(-10px);
+    border-color: var(--verde);
+    box-shadow: 0 12px 35px rgba(54,230,161,0.15);
+}
+
+.numero {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    color: rgba(255,255,255,0.25);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.icono-dificultad {
+    font-size: 42px;
+    margin: 15px 0;
+}
+
+.tarjeta-dificultad strong {
+    font-size: 19px;
+    letter-spacing: 2px;
+}
+
+.tarjeta-dificultad small {
+    color: var(--verde);
+    font-weight: 800;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.tarjeta-dificultad .descripcion {
+    color: var(--texto-secundario);
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+/* =====================================
+   BARRA DEL JUEGO
+===================================== */
+
+#juego {
+    justify-content: flex-start;
+    padding-top: 25px;
+}
+
+.barra {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 20px;
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 15px;
+    backdrop-filter: blur(12px);
+}
+
+.barra .boton-menu {
+    font-size: 12px;
+}
+
+.informacion-partida {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.informacion-partida .etiqueta {
+    font-size: 9px;
+    margin-bottom: 5px;
+}
+
+.informacion-partida p {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--texto-secundario);
+}
+
+.informacion-partida strong {
+    font-size: 30px;
+    color: var(--verde);
+}
+
+.indicador-estado {
+    color: var(--verde);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.punto {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--verde);
+    border-radius: 50%;
+    margin-right: 5px;
+    box-shadow: 0 0 10px var(--verde);
+}
+
+.instruccion {
+    margin: 20px 0;
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.instruccion span {
+    color: var(--verde);
+}
+
+/* =====================================
+   ESCENARIO
+===================================== */
+
+#escenario {
+    position: relative;
+    width: min(90vw, 560px);
+    height: min(55vh, 440px);
+    min-height: 300px;
+    background:
+        radial-gradient(circle at center,
+        rgba(47, 128, 116, 0.28),
+        transparent 70%),
+        rgba(5, 25, 32, 0.90);
+    border: 2px solid rgba(54,230,161,0.5);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow:
+        0 0 30px rgba(54,230,161,0.08),
+        inset 0 0 35px rgba(54,230,161,0.05);
+    touch-action: none;
+}
+
+#escenario::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        rgba(255,255,255,0.10) 1px,
+        transparent 1px
+    );
+    background-size: 25px 25px;
+    pointer-events: none;
+}
+
+#pulmones {
+    position: absolute;
+    width: 85%;
+    height: 95%;
+    top: 2%;
+    left: 7.5%;
+    filter: drop-shadow(0 0 12px rgba(239,163,173,0.25));
+}
+
+/* =====================================
+   RESIDUOS
+===================================== */
+
+.residuo {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    transition: box-shadow 0.2s;
+}
+
+.residuo:hover {
+    background: rgba(54,230,161,0.15);
+    box-shadow: 0 0 18px rgba(54,230,161,0.3);
+}
+
+.residuo:active {
+    cursor: grabbing;
+}
+
+.imagenResiduo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+.residuo.arrastrando {
+    z-index: 10 !important;
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 20px rgba(54,230,161,0.6);
+}
+
+/* =====================================
+   LINTERNA
+===================================== */
+
+#linterna {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: radial-gradient(
+        circle 90px at var(--x, 50%) var(--y, 50%),
+        transparent 0%,
+        rgba(0,0,0,0.20) 50%,
+        rgba(0,0,0,0.97) 100%
+    );
+    display: none;
+}
+
+/* =====================================
+   ZONA DE LIMPIEZA
+===================================== */
+
+#zonaLimpieza {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    width: min(90vw, 560px);
+    min-height: 85px;
+    margin-top: 18px;
+    padding: 12px;
+    background: rgba(19,169,121,0.12);
+    border: 2px dashed rgba(54,230,161,0.7);
+    border-radius: 16px;
+    transition: 0.25s;
+}
+
+#zonaLimpieza.activa {
+    background: rgba(54,230,161,0.28);
+    border-color: #ffffff;
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(54,230,161,0.2);
+}
+
+.icono-basura {
+    font-size: 35px;
+    color: var(--verde);
+}
+
+#zonaLimpieza strong {
+    color: var(--verde);
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+#zonaLimpieza p {
+    margin-top: 5px;
+    font-size: 11px;
+    color: var(--texto-secundario);
+}
+
+.nota-juego {
+    color: #87aaa2;
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 20px;
+}
+
+/* =====================================
+   VICTORIA
+===================================== */
+
+.contenido-victoria {
+    width: 100%;
+    max-width: 600px;
+}
+
+.victoria {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 30px;
+    color: var(--verde);
+    font-size: 75px;
+    border: 4px solid var(--verde);
+    border-radius: 50%;
+    box-shadow: 0 0 35px rgba(54,230,161,0.2);
+    animation: victoriaAnimacion 1s ease;
+}
+
+@keyframes victoriaAnimacion {
+    0% {
+        transform: scale(0.4);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#completado p {
+    margin: 20px 0;
+    color: var(--texto-secundario);
+}
+
+.mensaje-victoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 25px;
+    margin: 25px 0;
+    background: var(--panel);
+    border: 1px solid rgba(54,230,161,0.3);
+    border-radius: 16px;
+}
+
+.mensaje-victoria span {
+    font-size: 35px;
+}
+
+.mensaje-victoria strong {
+    color: var(--verde);
+}
+
+.mensaje-victoria small {
+    color: var(--texto-secundario);
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 650px) {
+
+    .pantalla {
+        padding: 25px 15px;
+    }
+
+    .dificultades {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .tarjeta-dificultad {
+        width: min(100%, 320px);
+        min-height: 150px;
+        padding: 12px;
+    }
+
+    .icono-dificultad {
+        font-size: 28px;
+        margin: 5px;
+    }
+
+    .barra {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .indicador-estado {
+        display: none;
+    }
+
+    #escenario {
+        width: 95vw;
+        height: 50vh;
+        min-height: 280px;
+    }
+
+    #zonaLimpieza {
+        width: 95vw;
+    }
+
+    .nota-juego {
+        font-size: 8px;
+        line-height: 1.6;
+    }
+
+    .pulmones-icono img {
+        width: 220px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+/* =====================================
+   ADAPTACIÓN PARA DISPOSITIVOS MÓVILES
+===================================== */
+
+@media screen and (max-width: 600px) {
+
+    /* CONFIGURACIÓN GENERAL */
+
+    body {
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .pantalla {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 25px 14px;
+    }
+
+    /* PANTALLA DE INICIO */
+
+    #inicio h1 {
+        font-size: clamp(25px, 8vw, 36px);
+        line-height: 1.2;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+        padding: 0 10px;
+    }
+
+    .pulmones-icono {
+        margin: 25px auto;
+    }
+
+    .pulmones-icono img {
+        width: min(65vw, 230px);
+        max-height: 230px;
+        object-fit: contain;
+    }
+
+    .boton-principal {
+        width: min(85%, 300px);
+        min-height: 55px;
+        font-size: 16px;
+    }
+
+    /* MENÚ DE DIFICULTADES */
+
+    #menu {
+        justify-content: center;
+        padding-top: 35px;
+        padding-bottom: 35px;
+    }
+
+    .encabezado {
+        margin-bottom: 22px;
+    }
+
+    .encabezado h1 {
+        font-size: clamp(25px, 7vw, 34px);
+    }
+
+    .encabezado p {
+        font-size: 13px;
+        padding: 0 10px;
+    }
+
+    .dificultades {
+        flex-direction: column;
+        align-items: center;
+        gap: 13px;
+        margin-bottom: 25px;
+    }
+
+    .tarjeta-dificultad {
+        width: min(100%, 340px);
+        min-height: 125px;
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .icono-dificultad {
+        font-size: 25px;
+        margin: 3px;
+    }
+
+    .tarjeta-dificultad strong {
+        font-size: 16px;
+    }
+
+    .tarjeta-dificultad small {
+        margin-top: 4px;
+    }
+
+    .tarjeta-dificultad .descripcion {
+        margin-top: 5px;
+    }
+
+    .boton-secundario {
+        min-height: 45px;
+    }
+
+    /* ESCENARIO DEL JUEGO */
+
+    #juego {
+        justify-content: flex-start;
+        padding: 15px 10px 25px;
+        gap: 0;
+    }
+
+    /* BARRA SUPERIOR */
+
+    .barra {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .barra .boton-menu {
+        min-height: 42px;
+        font-size: 12px;
+    }
+
+    .informacion-partida {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .informacion-partida p {
+        font-size: 9px;
+    }
+
+    .informacion-partida strong {
+        font-size: 25px;
+    }
+
+    .informacion-partida .etiqueta {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    /* INSTRUCCIONES */
+
+    .instruccion {
+        font-size: 12px;
+        line-height: 1.5;
+        padding: 0 8px;
+        margin: 16px 0;
+    }
+
+    /* ÁREA DE JUEGO */
+
+    #escenario {
+        width: 100%;
+        height: clamp(300px, 48vh, 430px);
+        min-height: 300px;
+        border-radius: 17px;
+    }
+
+    #pulmones {
+        width: 95%;
+        height: 95%;
+        left: 2.5%;
+    }
+
+    /* RESIDUOS */
+
+    .residuo {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+    }
+
+    .imagenResiduo {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* ZONA DE LIMPIEZA */
+
+    #zonaLimpieza {
+        width: 100%;
+        min-height: 80px;
+        margin-top: 13px;
+        gap: 12px;
+        border-radius: 14px;
+    }
+
+    .icono-basura {
+        font-size: 30px;
+    }
+
+    #zonaLimpieza strong {
+        font-size: 12px;
+    }
+
+    #zonaLimpieza p {
+        font-size: 10px;
+    }
+
+    .nota-juego {
+        font-size: 8px;
+        line-height: 1.6;
+        padding: 0 10px;
+    }
+
+    /* PANTALLA DE VICTORIA */
+
+    .victoria {
+        width: 105px;
+        height: 105px;
+        font-size: 60px;
+    }
+
+    .contenido-victoria h1 {
+        font-size: 30px;
+    }
+
+    .mensaje-victoria {
+        padding: 20px 12px;
+    }
+
+    .mensaje-victoria small {
+        font-size: 11px;
+    }
+}
+
+
+/* =====================================
+   CELULARES MUY PEQUEÑOS
+===================================== */
+
+@media screen and (max-width: 380px) {
+
+    .pantalla {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #inicio h1 {
+        font-size: 25px;
+    }
+
+    .pulmones-icono img {
+        width: 58vw;
+    }
+
+    .tarjeta-dificultad {
+        min-height: 115px;
+    }
+
+    #escenario {
+        height: 300px;
+    }
+
+    .residuo {
+        width: 42px;
+        height: 42px;
+    }
+
+    .imagenResiduo {
+        width: 34px;
+        height: 34px;
+    }
+
+}
+
+
+/* =====================================
+   CELULARES EN MODO HORIZONTAL
+===================================== */
+
+@media screen and (max-width: 900px)
+and (orientation: landscape)
+and (max-height: 500px) {
+
+    #inicio {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .pulmones-icono img {
+        width: 140px;
+        max-height: 140px;
+    }
+
+    #juego {
+        padding-top: 10px;
+    }
+
+    #escenario {
+        height: 48vh;
+        min-height: 180px;
+    }
+
+    .barra {
+        padding: 8px 15px;
+    }
+
+    .instruccion {
+        margin: 8px;
+    }
+
+    #zonaLimpieza {
+        min-height: 60px;
+        margin-top: 8px;
+    }
+}

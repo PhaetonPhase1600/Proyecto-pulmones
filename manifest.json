@@ -1,0 +1,13 @@
+
+{
+    "name": "Agentes Contaminantes",
+    "short_name": "Respira",
+    "description": "Juego educativo sobre los agentes contaminantes del sistema respiratorio.",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#071a20",
+    "theme_color": "#071a20",
+    "lang": "es"
+}

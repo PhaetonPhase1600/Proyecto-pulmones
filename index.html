@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071a20">
+    <title>Agentes Contaminantes | Respira con Ciencia</title>
+    <link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#071a20">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+</head>
+
+<body>
+
+    <!-- VIDEO DE FONDO -->
+    <video id="fondoVideo" autoplay muted loop playsinline>
+        <source src="assets/video/fondo.mp4" type="video/mp4">
+    </video>
+
+    <div class="fondo-overlay"></div>
+
+    <!-- PANTALLA DE INICIO -->
+    <section id="inicio" class="pantalla activa">
+
+        <div class="contenido-inicio">
+
+            <span class="etiqueta"></span>
+
+            <h1>AGENTES <span>CONTAMINANTES</span></h1>
+
+            <p class="subtitulo">
+                 Elimina la contaminación.
+            </p>
+
+            <div class="pulmones-icono">
+                <img
+                    src="assets/img/logo_respira_transparente (1).png"
+                    alt="Logo Respira con Ciencia">
+            </div>
+
+            <button class="boton-principal" onclick="mostrarMenu()">
+                <span>JUGAR</span>
+                <span class="flecha">➜</span>
+            </button>
+
+            <p class="texto-inferior">
+                UNA AVENTURA POR UN AIRE MÁS LIMPIO
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- MENU DE DIFICULTADES -->
+    <section id="menu" class="pantalla">
+
+        <div class="encabezado">
+            <span class="etiqueta">MODO DE JUEGO</span>
+            <h1>SELECCIONA TU <span>DIFICULTAD</span></h1>
+            <p></p>
+        </div>
+
+        <div class="dificultades">
+
+            <button class="tarjeta-dificultad basico"
+                    onclick="iniciarJuego('basico')">
+                <span class="numero">01</span>
+                <span class="icono-dificultad"></span>
+                <strong>BÁSICO</strong>
+                <small>5 residuos</small>
+                <span class="descripcion">Nivel primaria</span>
+            </button>
+
+            <button class="tarjeta-dificultad intermedio"
+                    onclick="iniciarJuego('intermedio')">
+                <span class="numero">02</span>
+                <span class="icono-dificultad"></span>
+                <strong>INTERMEDIO</strong>
+                <small>8 residuos</small>
+                <span class="descripcion">Nivel secundaria</span>
+            </button>
+
+            <button class="tarjeta-dificultad avanzado"
+                    onclick="iniciarJuego('avanzado')">
+                <span class="numero">03</span>
+                <span class="icono-dificultad">
+                    <imga src="assets/img/Captura_de_pantalla_2026-11-27_005751-removebg-preview.png" alt="Estrella" width="20" height="20">
+                </span>
+                <strong>AVANZADO</strong>
+                <small>12 residuos</small>
+                <span class="descripcion">Nivel bachillerato</span>
+            </button>
+
+        </div>
+
+        <button class="boton-secundario" onclick="cambiarPantalla('inicio')">
+            ← REGRESAR
+        </button>
+
+    </section>
+
+
+    <!-- ESCENARIO DEL JUEGO -->
+    <section id="juego" class="pantalla">
+
+        <header class="barra">
+
+            <button class="boton-menu" onclick="volverMenu()">
+                ← MENÚ
+            </button>
+
+            <div class="informacion-partida">
+                <span class="etiqueta">JUEGO EN PROGRESO</span>
+                <p>RESIDUOS RESTANTES</p>
+                <strong id="contador">0</strong>
+            </div>
+
+            <div class="indicador-estado">
+                <span class="punto"></span>
+                SISTEMA ACTIVO
+            </div>
+
+        </header>
+
+        <p class="instruccion">
+            <span>✦</span>
+            Arrastra los agentes contaminantes hacia la zona de limpieza.
+        </p>
+
+        <div id="escenario">
+
+            <!-- ILUSTRACIÓN DE PULMONES -->
+            <svg id="pulmones" viewBox="0 0 400 400"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <path d="M195 35 L195 145 L175 180"
+                      fill="none" stroke="#E8A1A9"
+                      stroke-width="16" stroke-linecap="round"/>
+
+                <path d="M205 35 L205 145 L225 180"
+                      fill="none" stroke="#E8A1A9"
+                      stroke-width="16" stroke-linecap="round"/>
+
+                <path d="M175 180
+                         C145 115 105 130 75 190
+                         C30 285 65 365 145 345
+                         C190 335 190 270 195 190 Z"
+                      fill="#EFA3AD" stroke="#A64F65"
+                      stroke-width="5"/>
+
+                <path d="M225 180
+                         C255 115 295 130 325 190
+                         C370 285 335 365 255 345
+                         C210 335 210 270 205 190 Z"
+                      fill="#EFA3AD" stroke="#A64F65"
+                      stroke-width="5"/>
+
+                <g fill="none" stroke="#BD657B"
+                   stroke-width="5" stroke-linecap="round">
+                    <path d="M175 180 L140 225 L110 270"/>
+                    <path d="M175 180 L165 250 L150 305"/>
+                    <path d="M225 180 L260 225 L290 270"/>
+                    <path d="M225 180 L235 250 L250 305"/>
+                </g>
+
+            </svg>
+
+            <!-- RESIDUOS -->
+            <div id="residuos"></div>
+
+            <!-- EFECTO DE LINTERNA -->
+            <div id="linterna"></div>
+
+        </div>
+
+        <!-- ZONA DE LIMPIEZA -->
+        <div id="zonaLimpieza">
+
+            <span class="icono-basura">♻</span>
+
+            <div>
+                <strong>ZONA DE LIMPIEZA</strong>
+                <p>ARRASTRA AQUÍ LOS RESIDUOS</p>
+            </div>
+
+        </div>
+
+        <p class="nota-juego">
+            CADA RESIDUO ELIMINADO AYUDA A MANTENER TUS PULMONES LIMPIOS.
+        </p>
+
+    </section>
+
+
+    <!-- PANTALLA DE VICTORIA -->
+    <section id="completado" class="pantalla">
+
+        <div class="contenido-victoria">
+
+            <div class="victoria">✓</div>
+
+            <span class="etiqueta">Juego terminado</span>
+
+            <h1>¡EXCELENTE <span>TRABAJO!</span></h1>
+
+            <p>Has eliminado todos los agentes contaminantes.</p>
+
+            <div class="mensaje-victoria">
+                <span></span>
+                <strong>¡Tus pulmones están limpios!</strong>
+                <small>Recuerda: respirar aire limpio es cuidar tu vida.</small>
+            </div>
+
+            <button class="boton-principal"
+                    onclick="volverMenu()">
+                REGRESAR AL MENÚ
+                <span class="flecha">➜</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
